@@ -8,6 +8,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let direcao = 'direita';
     let proximaDirecao = 'direita'; 
     let pontuacao = 0;
+
+    const atualizarPontuacao = () => {
+        const pontuacaoElemento = document.getElementById('pontuacao');
+        if (pontuacaoElemento) {
+            pontuacaoElemento.textContent = `Pontuação: ${pontuacao}`;
+        }
+    };
     let cobra = [
         {x: 200, y: 200},
         {x: 180, y: 200},
@@ -50,10 +57,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (cabeca.x === cobra[i].x && cabeca.y === cobra[i].y) {
                 reiniciarJogo('Game Over! A cobra colidiu com ela mesma.');
                 return;
-            }
-        }
 
-        cobra.unshift(cabeca);
+                } else {
+                    cobra.pop();
+                }
+            cobra.pop();
+        }
+        atualizarPontuacao();
 
         if (cabeca.x === maca.x && cabeca.y === maca.y) {
             pontuacao++;
